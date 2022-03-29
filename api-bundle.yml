@@ -1,0 +1,101 @@
+openapi: '3.1'
+info:
+  version: 1.2.3
+  title: test API
+security:
+  - bearerAuth: []
+paths:
+  /transformations/evaluate:
+    post:
+      tags:
+        - Transformations
+      summary: Evaluate a Transformation Expression
+      operationId: expression-evaluate
+      description: >-
+        Evaluate an expression with variable assignments. The endpoint responds
+        with the calculation result if the expression is valid.
+      requestBody:
+        content:
+          application/hal+json:
+            schema:
+              title: Transformation
+              type: object
+              description: Transformation definition
+              required:
+                - tree
+              properties:
+                tree:
+                  allOf:
+                    - title: Transformation Node Tree
+                      description: Transformation node tree
+                    - $ref: '#/components/schemas/transformation-node.model'
+      responses:
+        '200':
+          description: Result
+        '400':
+          description: Expression is not valid
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    transformation-node.model:
+      title: Transformation Node
+      anyOf:
+        - $ref: '#/components/schemas/transformation-node_addition.model'
+        - $ref: '#/components/schemas/transformation-node_constant.model'
+        - $ref: '#/components/schemas/transformation-node_subtraction.model'
+    transformation-node_addition.model:
+      title: Addition
+      type: object
+      description: Transformation node for a addition operation (summand1 + summand2)
+      properties:
+        type:
+          type: string
+          description: Type of transformation expression
+          enum:
+            - ADDITION
+          example: ADDITION
+        parameter1:
+          type: object
+          description: First summand
+          $ref: '#/components/schemas/transformation-node.model'
+        parameter2:
+          type: object
+          description: Second summand
+          $ref: '#/components/schemas/transformation-node.model'
+    transformation-node_constant.model:
+      title: Constant
+      type: object
+      description: Transformation node for a constant
+      properties:
+        type:
+          type: string
+          description: Type of transformation expression
+          enum:
+            - CONSTANT
+          example: CONSTANT
+        value:
+          oneOf:
+            - type: number
+              example: 1.5
+            - type: boolean
+              example: true
+    transformation-node_subtraction.model:
+      title: Subtraction
+      type: object
+      description: Transformation node for a subtraction operation (minuend - subtrahend)
+      properties:
+        type:
+          type: string
+          description: Type of transformation expression
+          enum:
+            - SUBTRACTION
+          example: SUBTRACTION
+        parameter1:
+          description: Minuend
+          $ref: '#/components/schemas/transformation-node.model'
+        parameter2:
+          $ref: '#/components/schemas/transformation-node.model'
