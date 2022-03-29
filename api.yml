@@ -1,0 +1,16 @@
+openapi: "3.1"
+info:
+  version: "1.2.3"
+  title: test API
+security:
+  - bearerAuth: []
+paths:
+  /transformations/evaluate:
+    $ref: ./transformations_evaluate.endpoint.yaml
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

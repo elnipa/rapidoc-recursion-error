@@ -1,0 +1,15 @@
+title: Subtraction
+type: object
+description: Transformation node for a subtraction operation (minuend - subtrahend)
+properties:
+  type:
+    type: string
+    description: Type of transformation expression
+    enum:
+      - SUBTRACTION
+    example: SUBTRACTION
+  parameter1:
+    description: Minuend
+    $ref: ./transformation-node.model.yaml
+  parameter2:
+    $ref: ./transformation-node.model.yaml

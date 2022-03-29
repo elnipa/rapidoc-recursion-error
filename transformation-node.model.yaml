@@ -1,0 +1,5 @@
+title: Transformation Node
+anyOf:
+  - $ref: ./transformation-node_addition.model.yaml
+  - $ref: ./transformation-node_constant.model.yaml
+  - $ref: ./transformation-node_subtraction.model.yaml

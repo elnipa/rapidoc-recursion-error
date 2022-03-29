@@ -1,0 +1,16 @@
+title: Constant
+type: object
+description: Transformation node for a constant
+properties:
+  type:
+    type: string
+    description: Type of transformation expression
+    enum:
+      - CONSTANT
+    example: CONSTANT
+  value:
+    oneOf:
+      - type: number
+        example: 1.5
+      - type: boolean
+        example: true

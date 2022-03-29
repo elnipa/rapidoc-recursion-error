@@ -1,0 +1,18 @@
+title: Addition
+type: object
+description: Transformation node for a addition operation (summand1 + summand2)
+properties:
+  type:
+    type: string
+    description: Type of transformation expression
+    enum:
+      - ADDITION
+    example: ADDITION
+  parameter1:
+    type: object
+    description: First summand
+    $ref: ./transformation-node.model.yaml
+  parameter2:
+    type: object
+    description: Second summand
+    $ref: ./transformation-node.model.yaml

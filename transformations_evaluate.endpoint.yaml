@@ -1,0 +1,26 @@
+post:
+  tags:
+    - Transformations
+  summary: Evaluate a Transformation Expression
+  operationId: expression-evaluate
+  description: Evaluate an expression with variable assignments. The endpoint responds with the calculation result if the expression is valid.
+  requestBody:
+    content:
+      application/hal+json:
+        schema:
+          title: Transformation
+          type: object
+          description: Transformation definition
+          required:
+            - tree
+          properties:
+            tree:
+              allOf:
+                - title: Transformation Node Tree
+                  description: Transformation node tree
+                - $ref: ./transformation-node.model.yaml
+  responses:
+    "200":
+      description: Result
+    "400":
+      description: Expression is not valid
